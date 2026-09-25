@@ -1,20 +1,47 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef } from "react";
 
-export default  forwardRef(function Input({
-    placeholder,
-    type,
-    icon,
-    refi,
-    ...props
-} , ref) {
-  return (
-    <>
-        <div className='rounded-3xl flex items-center gap-2 border-gray-200 outline none border-2 w-full'>
-            <input ref={ref} {...props} placeholder={placeholder} type={type} className='py-2 text-white bg-transparent text-lg w-[92%] ml-[5%] outline-none placeholder-white placeholder:text-xl placeholder:font-light'/>
-                    
-             {icon}       
-        </div>
+const Input = forwardRef(function Input(
+  { placeholder, type = "text", errors , icon, ...props },
+  ref
+) {
     
-    </>
-  )
-})
+  return (
+    <div>
+        <div className="relative flex items-center w-full">
+        <input
+            ref={ref}
+            {...props}
+            type={type}
+            placeholder={placeholder}
+            className="
+            w-full
+            h-12
+            px-4
+            rounded-xl
+            border border-white/10
+            bg-white/5
+            text-white
+            text-sm
+            outline-none
+            transition-all
+            duration-200
+            placeholder:text-gray-500
+            focus:border-blue-500/70
+            focus:bg-white/[0.08]
+            focus:ring-2
+            focus:ring-blue-500/20
+            "
+        />
+
+        {icon && (
+            <span className="absolute right-4 text-gray-400 pointer-events-none">
+            {icon}
+            </span>
+        )}
+        </div>
+        {errors && <p className="text-red-500">{errors?.message || ''}</p>}
+    </div>
+  );
+});
+
+export default Input;
